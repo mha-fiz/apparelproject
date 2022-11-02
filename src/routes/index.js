@@ -1,5 +1,4 @@
 import { Home } from "./home";
 import { Navigation } from "./navigation";
-import { SignIn } from "./sign-in";
-
-export { Home, Navigation, SignIn };
+import { Authentication } from "./authentication/Authentication";
+export { Home, Navigation, Authentication };
