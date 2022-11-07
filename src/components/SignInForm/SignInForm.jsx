@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase";
@@ -16,7 +15,6 @@ export function SignInForm({ showSignUpForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
 
   const { email, password } = signUpForm;
-
   const onFormChange = ({ target: { name, value } }) => {
     setSignUpForm({ ...signUpForm, [name]: value });
   };
@@ -29,11 +27,8 @@ export function SignInForm({ showSignUpForm }) {
     event.preventDefault();
 
     try {
-      const result = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log(
-        "🚀 ~ file: SignInForm.jsx ~ line 32 ~ onFormSubmit ~ result",
-        result
-      );
+      await signInAuthUserWithEmailAndPassword(email, password);
+
       resetSignInForm();
     } catch (error) {
       console.log("Error when signing using email and password", error);
@@ -41,8 +36,7 @@ export function SignInForm({ showSignUpForm }) {
   };
 
   const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   return (
