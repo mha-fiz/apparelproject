@@ -1,5 +1,10 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContex";
+import {
+  AiOutlineDelete,
+  AiOutlinePlusCircle,
+  AiOutlineMinusCircle,
+} from "react-icons/ai";
 import "./CheckoutItem.scss";
 
 export function CheckoutItem({ item }) {
@@ -17,18 +22,21 @@ export function CheckoutItem({ item }) {
         <img src={imageUrl} alt={`${name}`} />
       </div>
       <span className="name"> {name} </span>
-      <span className="quantity">
+      <div className="quantity">
         <div className="arrow" onClick={removeItemHandler}>
-          &#10094;
+          {/* &#10094; */}
+          <AiOutlineMinusCircle />
         </div>
         <span className="value">{quantity}</span>
         <div className="arrow" onClick={addItemHandler}>
-          &#10095;
+          {/* &#10095; */}
+          <AiOutlinePlusCircle />
         </div>
-      </span>
+      </div>
       <span className="price"> {price}</span>
       <div className="remove-button" onClick={clearItemHandler}>
-        &#10005;
+        {/* &#10005; */}
+        <AiOutlineDelete />
       </div>
     </div>
   );

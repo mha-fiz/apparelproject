@@ -5,7 +5,7 @@ import { Button, CartItem } from "../index";
 import "./CartDropdown.scss";
 
 export const CartDropdown = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, setIsCartOpen } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -15,7 +15,14 @@ export const CartDropdown = () => {
           <CartItem key={item.id} item={item} />
         ))}
       </div>
-      <Button onClick={() => navigate("/checkout")}>Go to checkout</Button>
+      <Button
+        onClick={() => {
+          navigate("/checkout");
+          setIsCartOpen(false);
+        }}
+      >
+        Go to checkout
+      </Button>
     </div>
   );
 };

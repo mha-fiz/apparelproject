@@ -59,9 +59,12 @@ export function SignInForm({ showSignUpForm }) {
           value={password}
         />
         <div className="buttons-container">
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">
+            <span>sign in</span>
+          </Button>
+          <p>or</p>
           <Button type="button" buttonType="google" onClick={logGoogleUser}>
-            Google sign in
+            <span>google sign in</span>
           </Button>
         </div>
       </form>

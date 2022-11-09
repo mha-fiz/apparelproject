@@ -28,7 +28,7 @@ export const Checkout = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} item={cartItem} />
       ))}
-      <div className="total">TOTAL {cartTotal}</div>
+      <div className="total">TOTAL: ${cartTotal}</div>
     </div>
   );
 };
