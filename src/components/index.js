@@ -9,6 +9,7 @@ import { Cart } from "./Cart/Cart";
 import { CartDropdown } from "./CartDropdown/CartDropdown";
 import { CartItem } from "./CartItem/CartItem";
 import { CheckoutItem } from "./CheckoutItem/CheckoutItem";
+import { CategoryPreview } from "./CategoryPreview/CategoryPreview";
 
 export {
   CategoriesContainer,
@@ -22,4 +23,5 @@ export {
   CartDropdown,
   CartItem,
   CheckoutItem,
+  CategoryPreview,
 };

@@ -9,7 +9,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  writeBatch,
+  collection,
+  query,
+  getDocs,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -82,3 +91,34 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListerner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+// initialize shop data to firestore
+export const addNewCollectionsAndDocuments = async (
+  collectionKey,
+  shopCategories
+) => {
+  const batch = writeBatch(db);
+
+  shopCategories.forEach((shopCategory) => {
+    const docRef = doc(db, collectionKey, shopCategory.title.toLowerCase());
+    batch.set(docRef, shopCategory);
+  });
+
+  await batch.commit();
+  console.log("Write Batch ran successfuly!");
+};
+
+export const getAllCategoriesAndDocuments = async () => {
+  const searchQuery = query(collection(db, "categories"));
+
+  const querySnapshot = await getDocs(searchQuery);
+
+  const shopData = querySnapshot.docs.reduce((accumulator, document) => {
+    const { title, items } = document.data();
+    accumulator[title.toLowerCase()] = items;
+
+    return accumulator;
+  }, {});
+
+  return shopData;
+};
