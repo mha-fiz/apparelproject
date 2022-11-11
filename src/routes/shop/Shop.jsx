@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { CategoriesPreview, Category } from "../index";
 import { Route, Routes } from "react-router-dom";
-import { ProductsContext } from "../../contexts/ProductsContex";
 
 import "./Shop.scss";
 
