@@ -5,12 +5,23 @@
   
     .title {
       font-size: 28px;
+      text-transform: capitalize;
       margin-bottom: 25px;
       cursor: pointer;
+
+      & span {
+        border-bottom: solid 1px black;
+      }
 
       @media(max-width: 1024px) {
         padding-left: 15px;
       }
+
+      &:hover {
+        transform: translateX(5px);
+        transition: .4s;
+      }
+
     }
   
     .preview {

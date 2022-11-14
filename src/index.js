@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./contexts/UserContext";
 import { ProductsProvider } from "./contexts/ProductsContex";
 import { CartProvider } from "./contexts/CartContex";
+import { ScrollToTop } from "./utils/scrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,6 +16,7 @@ root.render(
       <UserProvider>
         <ProductsProvider>
           <CartProvider>
+            <ScrollToTop />
             <App />
           </CartProvider>
         </ProductsProvider>

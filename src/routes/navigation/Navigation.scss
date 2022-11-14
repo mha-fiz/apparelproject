@@ -4,27 +4,45 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
   z-index: 100;
-  background-color: #F7F7F7;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  background-color: #000;
+  color: #fff;
+  margin: 0 auto;
+  // box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 
+  .nav-links-left {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    a {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
 
   .logo-container {
     display: flex;
     height: 100%;
-    width: 75px;
-    padding-left: 25px;
+    width: 150px;
+    max-width: 33.33%;
     cursor: pointer;
+    // padding-left: 25px;
   }
 
   .nav-links-container {
-    width: 50%;
+    width: 40%;
+    max-width: 33.33%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 50px;
+    justify-content: space-evenly;
+    // padding-right: 50px;
 
     .nav-link {
       padding: 10px 5px;
@@ -45,7 +63,7 @@
 
     width: 30px;
     height: 30px;
-    margin-right: 50px;
+    margin-right: 30px;
     margin-top: 10px;
 
     svg {
@@ -101,14 +119,16 @@
         color: #fff;
         background-color: #000;
         border-radius: 100px;
-        // border: #000 solid 1px;
         margin: 15px 0px;
       }
     }
   }
+
 }
 
 main {
+
+  margin: 20px 10px;
 
   @media (min-width: 769px) {
     margin: 20px 40px;

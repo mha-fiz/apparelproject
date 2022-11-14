@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  // font-family: 'Josefin Sans', sans-serif;
   font-family: 'Kanit', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -8,9 +7,9 @@ body {
 
 }
 
-body::-webkit-scrollbar{
-  display: none;
-}
+// body::-webkit-scrollbar{
+//   display: none;
+// }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

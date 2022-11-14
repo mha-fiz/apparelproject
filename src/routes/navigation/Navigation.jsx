@@ -1,17 +1,12 @@
 import { useContext, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Cart, CartDropdown } from "../../components";
 import { CartContext } from "../../contexts/CartContex";
 import { UserContext } from "../../contexts/UserContext";
 import { signOutUser } from "../../utils/firebase";
-import {
-  AiOutlineLogin,
-  AiOutlineShop,
-  AiOutlineLogout,
-  AiOutlineClose,
-} from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import logo from "../../assets/crown-black.png";
+import logo from "../../assets/crown-white.png";
 import "./Navigation.scss";
 
 const Navigation = () => {
@@ -48,23 +43,22 @@ const Navigation = () => {
 
   return (
     <>
-      <div className={`navigation`}>
+      <header className="navigation">
+        <div className="nav-links-left">
+          <Link to="/shop/mens">Mens</Link>
+          <Link to="/shop/womens">Womens</Link>
+          <Link to="/shop/jackets">Jackets</Link>
+          <Link to="/shop/hats">Hats</Link>
+          <Link to="/shop/sneakers">Sneakers</Link>
+        </div>
+
         <div className="logo-container" onClick={() => navigate("/")}>
           <img src={logo} alt="company logo" />
         </div>
 
         <div className="nav-links-container">
           <div className="nav-link" to="shop" onClick={() => navigate("/shop")}>
-            <div
-              style={{
-                marginRight: "10px",
-                display: "inline-block",
-                verticalAlign: "middle",
-              }}
-            >
-              <AiOutlineShop />
-            </div>
-            Shop
+            <span>Shop</span>
           </div>
           {!currentUser ? (
             <div
@@ -72,32 +66,14 @@ const Navigation = () => {
               to="auth"
               onClick={() => navigate("/auth")}
             >
-              <div
-                style={{
-                  marginRight: "10px",
-                  display: "inline-block",
-                  verticalAlign: "middle",
-                }}
-              >
-                <AiOutlineLogin />
-              </div>
-              Sign In
+              <span>Sign In</span>
             </div>
           ) : (
             <div className="nav-link" onClick={signOutHandler}>
-              <div
-                style={{
-                  marginRight: "10px",
-                  display: "inline-block",
-                  verticalAlign: "middle",
-                }}
-              >
-                <AiOutlineLogout />
-              </div>
-              Sign out
+              <span>Sign Out</span>
             </div>
           )}
-          {currentUser && <Cart />}
+          <Cart />
         </div>
         <div className="nav-hamburger" onClick={drawerOpenHandler}>
           <GiHamburgerMenu className="nav-hamburger-icon" />
@@ -157,10 +133,24 @@ const Navigation = () => {
           </div>
         </div>
         {isCartOpen && <CartDropdown />}
-      </div>
+      </header>
+
       <main>
         <Outlet />
       </main>
+      {/* <footer
+        style={{
+          width: "100%",
+          height: "35px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#292929",
+          color: "#fff",
+        }}
+      >
+        <p>Created by Muhamad Hafiz.</p>
+      </footer> */}
     </>
   );
 };
