@@ -46,3 +46,24 @@
       cursor: pointer;
     }
   }
+
+  .checkout-item-mobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid darkgrey;
+    
+    .item-description-mobile {
+      width: 75%;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 0 15px;
+
+      .quantity-mobile {
+        display: flex;
+      }
+    }
+  }
