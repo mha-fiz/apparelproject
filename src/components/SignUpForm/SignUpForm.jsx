@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -16,6 +17,8 @@ const DEFAULT_FORM = {
 
 function SignUpForm({ showSignInForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
+
+  const navigate = useNavigate();
 
   const { displayName, email, password, confirmPassword } = signUpForm;
   const { setCurrentUser } = useContext(UserContext);
@@ -46,6 +49,7 @@ function SignUpForm({ showSignInForm }) {
       await createUserDocumentFromAuth(user, { displayName });
 
       resetSignUpForm();
+      navigate("/");
     } catch (error) {
       console.log("Error when signing using email and password", error);
     }

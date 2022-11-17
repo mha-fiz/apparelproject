@@ -122,3 +122,9 @@ export const getAllCategoriesAndDocuments = async () => {
 
   return shopData;
 };
+
+export const getCurrentUser = async (userDocRef) => {
+  const userSnapshot = await getDoc(userDocRef);
+
+  return userSnapshot.data();
+};

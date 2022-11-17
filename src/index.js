@@ -1,26 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { UserProvider } from "./contexts/UserContext";
 import { ProductsProvider } from "./contexts/ProductsContex";
 import { CartProvider } from "./contexts/CartContex";
 import { ScrollToTop } from "./utils/scrollToTop";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
+      <Provider store={store}>
         <ProductsProvider>
           <CartProvider>
             <ScrollToTop />
             <App />
           </CartProvider>
         </ProductsProvider>
-      </UserProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

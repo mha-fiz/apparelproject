@@ -3,9 +3,9 @@ import { CartContext } from "../../contexts/CartContex";
 import "./Cart.scss";
 
 export function Cart() {
-  const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext);
+  const { setIsCartOpen, cartCount } = useContext(CartContext);
 
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
+  const toggleCart = () => setIsCartOpen();
 
   return (
     <div className="cart-icon-container" onClick={toggleCart}>

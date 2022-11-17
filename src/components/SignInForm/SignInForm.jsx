@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
@@ -13,6 +14,7 @@ const DEFAULT_FORM = {
 
 export function SignInForm({ showSignUpForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
+  const navigate = useNavigate();
 
   const { email, password } = signUpForm;
   const onFormChange = ({ target: { name, value } }) => {
@@ -30,6 +32,7 @@ export function SignInForm({ showSignUpForm }) {
       await signInAuthUserWithEmailAndPassword(email, password);
 
       resetSignInForm();
+      navigate("/");
     } catch (error) {
       console.log("Error when signing using email and password", error);
     }

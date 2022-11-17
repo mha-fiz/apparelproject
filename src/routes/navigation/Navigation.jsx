@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "../../store/reducers/userReducer";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Cart, CartDropdown } from "../../components";
 import { CartContext } from "../../contexts/CartContex";
-import { UserContext } from "../../contexts/UserContext";
 import { signOutUser } from "../../utils/firebase";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -10,8 +11,9 @@ import logo from "../../assets/crown-white.png";
 import "./Navigation.scss";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { currentUser, setCurrentUser } = useContext(UserContext);
   const { isCartOpen, cartCount } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ const Navigation = () => {
 
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentUser(null);
+    dispatch(setCurrentUser(null));
   };
 
   const drawerClosedOnElementClick = (path, callback) => {
