@@ -16,12 +16,12 @@ const App = () => {
     const unsubscribe = onAuthStateChangedListerner(async (userAuth) => {
       if (userAuth) {
         const userDocRef = await createUserDocumentFromAuth(userAuth);
-        const userData = await getCurrentUser(userDocRef);
-        dispatch(setCurrentUser(userData));
-        return;
+        const {
+          createdAt: { seconds },
+          ...rest
+        } = await getCurrentUser(userDocRef);
+        dispatch(setCurrentUser({ createdAt: seconds, ...rest }));
       }
-
-      setCurrentUser(userAuth);
     });
 
     return unsubscribe;

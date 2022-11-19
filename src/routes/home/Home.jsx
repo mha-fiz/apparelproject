@@ -22,14 +22,12 @@ const Home = () => {
       title: "womens",
       imageUrl:
         "https://www.linkpicture.com/q/pexels-marcelo-chagas-1876279.jpg",
-      // imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
     },
     {
       id: 5,
       title: "mens",
       imageUrl:
         "https://media.gq.com/photos/5a04d33bcaa2637175aa5d70/16:9/pass/hub-streetwear.png",
-      // imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
   ];
 

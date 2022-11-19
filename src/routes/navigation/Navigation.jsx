@@ -1,20 +1,21 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/reducers/userReducer";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Cart, CartDropdown } from "../../components";
-import { CartContext } from "../../contexts/CartContex";
 import { signOutUser } from "../../utils/firebase";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "../../assets/crown-white.png";
 import "./Navigation.scss";
+import { cartCountSelector, isCartOpenSelector } from "../../store/selectors";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { isCartOpen, cartCount } = useContext(CartContext);
+  const isCartOpen = useSelector(isCartOpenSelector);
+  const cartCount = useSelector(cartCountSelector);
   const navigate = useNavigate();
 
   const drawerClosedHandler = () => {
@@ -44,7 +45,9 @@ const Navigation = () => {
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <header className="navigation">
         <div className="nav-links-left">
           <Link to="/shop/mens">Mens</Link>
@@ -137,23 +140,20 @@ const Navigation = () => {
         {isCartOpen && <CartDropdown />}
       </header>
 
-      <main>
+      <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      {/* <footer
+
+      <footer
         style={{
+          height: "50px",
+          backgroundColor: "greenyellow",
           width: "100%",
-          height: "35px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#292929",
-          color: "#fff",
         }}
       >
-        <p>Created by Muhamad Hafiz.</p>
-      </footer> */}
-    </>
+        FOOOTERm
+      </footer>
+    </div>
   );
 };
 

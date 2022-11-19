@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../store/reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 import {
   signInAuthUserWithEmailAndPassword,
@@ -15,6 +17,7 @@ const DEFAULT_FORM = {
 export function SignInForm({ showSignUpForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { email, password } = signUpForm;
   const onFormChange = ({ target: { name, value } }) => {

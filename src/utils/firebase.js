@@ -105,7 +105,6 @@ export const addNewCollectionsAndDocuments = async (
   });
 
   await batch.commit();
-  console.log("Write Batch ran successfuly!");
 };
 
 export const getAllCategoriesAndDocuments = async () => {
@@ -113,14 +112,7 @@ export const getAllCategoriesAndDocuments = async () => {
 
   const querySnapshot = await getDocs(searchQuery);
 
-  const shopData = querySnapshot.docs.reduce((accumulator, document) => {
-    const { title, items } = document.data();
-    accumulator[title.toLowerCase()] = items;
-
-    return accumulator;
-  }, {});
-
-  return shopData;
+  return querySnapshot.docs.map((doc) => doc.data());
 };
 
 export const getCurrentUser = async (userDocRef) => {

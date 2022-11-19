@@ -1,20 +1,35 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/CartContex";
 import {
   AiOutlineDelete,
   AiOutlinePlusCircle,
   AiOutlineMinusCircle,
 } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { cartItemsSelector } from "../../store/selectors";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+} from "../../store/reducers/cartReducer";
+import {
+  addItemToCartAction,
+  clearItemFromCartAction,
+  removeItemFromCartAction,
+} from "../../store/utils";
 import "./CheckoutItem.scss";
 
 export function CheckoutItem({ item, isMobileView = false }) {
   const { imageUrl, name, quantity, price } = item;
-  const { addItemToCart, removeItemFromCart, clearItemFromCart } =
-    useContext(CartContext);
+  const cartItems = useSelector(cartItemsSelector);
+  const dispatch = useDispatch();
 
-  const addItemHandler = () => addItemToCart(item);
-  const removeItemHandler = () => removeItemFromCart(item);
-  const clearItemHandler = () => clearItemFromCart(item);
+  const itemToAdd = addItemToCartAction(cartItems, item);
+  const addItemHandler = () => dispatch(addItemToCart(itemToAdd));
+
+  const itemToRemove = removeItemFromCartAction(cartItems, item);
+  const removeItemHandler = () => dispatch(removeItemFromCart(itemToRemove));
+
+  const itemToClear = clearItemFromCartAction(cartItems, item);
+  const clearItemHandler = () => dispatch(clearItemFromCart(itemToClear));
 
   if (!isMobileView)
     return (

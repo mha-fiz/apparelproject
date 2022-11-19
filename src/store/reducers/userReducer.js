@@ -4,8 +4,9 @@ export const USER_ACTION_TYPES = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
 };
 
-// const initialState = { currentUser: null };
-const initialState = null;
+const initialState = {
+  currentUser: null,
+};
 
 export const userSlice = createSlice({
   name: "user",
