@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { SignUpForm, SignInForm } from "../../components";
 import "./Authentication.scss";
 
@@ -24,6 +25,8 @@ export function Authentication() {
       {showForm === "sign-up" && (
         <SignUpForm showSignInForm={() => setShowForm("sign-in")} />
       )}
+
+      <ToastContainer />
     </div>
   );
 }

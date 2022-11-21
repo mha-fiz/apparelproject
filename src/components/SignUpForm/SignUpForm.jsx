@@ -4,6 +4,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase";
+import { toast } from "react-toastify";
 import { FormInput, Button } from "../";
 import "./SignUpForm.scss";
 
@@ -16,6 +17,7 @@ const DEFAULT_FORM = {
 
 function SignUpForm({ showSignInForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ function SignUpForm({ showSignInForm }) {
     }
 
     try {
+      setIsButtonDisabled(true);
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
@@ -48,7 +51,9 @@ function SignUpForm({ showSignInForm }) {
       resetSignUpForm();
       navigate("/");
     } catch (error) {
-      console.log("Error when signing using email and password", error);
+      toast.error(error.message);
+    } finally {
+      setIsButtonDisabled(false);
     }
   };
 
@@ -85,7 +90,13 @@ function SignUpForm({ showSignInForm }) {
           onChange={onFormChange}
           value={confirmPassword}
         />
-        <Button type="submit">Sign up</Button>
+        <Button
+          type="submit"
+          disabled={isButtonDisabled}
+          buttonType={`${isButtonDisabled ? "disabled" : ""}`}
+        >
+          Sign up
+        </Button>
       </form>
       <span style={{ marginTop: "16px" }}>
         Already have an account?{" "}

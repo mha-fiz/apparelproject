@@ -19,11 +19,21 @@
     @media (max-width: 768px) {
       padding: 0;
     }
+
   
     &:hover {
       background-color: white;
       color: black;
       border: 1px solid black;
+
+      &.disabled {
+        border: none;
+      }
+    }
+    
+    &.disabled {
+      background-color: rgb(222, 222, 222);
+      color: grey;
     }
   
     &.google-sign-in {

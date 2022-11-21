@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllCategoriesAndDocuments } from "../../utils/firebase";
+import { toast } from "react-toastify";
 
 const initialState = {
   products: [],
@@ -9,8 +10,14 @@ const initialState = {
 
 export const getAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
-  async () => {
-    return await getAllCategoriesAndDocuments();
+  async (_, thunkApi) => {
+    try {
+      const result = await getAllCategoriesAndDocuments();
+      return result;
+    } catch (error) {
+      toast.error(error);
+      return thunkApi.rejectWithValue(error);
+    }
   }
 );
 

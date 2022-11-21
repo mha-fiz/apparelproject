@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <CategoriesContainer categories={categories} />;
+      <CategoriesContainer categories={categories} />
     </>
   );
 };

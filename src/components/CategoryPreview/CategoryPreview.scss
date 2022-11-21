@@ -10,6 +10,11 @@
       cursor: pointer;
       border-bottom: solid 1px black;
 
+      &.dark {
+        color: var(--text-dark);
+        border-bottom: solid 1px var(--text-dark);
+      }
+
       @media (max-width: 1024px) {
         margin-left: 15px;
       }

@@ -24,6 +24,10 @@ $main-color: black;
     border-bottom: 1px solid $sub-color;
     margin: 25px 0;
 
+    &.dark {
+      background-color: #292929;
+    }
+
     &:focus {
       outline: none;
     }

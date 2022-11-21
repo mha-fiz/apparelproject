@@ -4,6 +4,7 @@ import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase";
+import { toast } from "react-toastify";
 import { FormInput, Button } from "../";
 import "./SignInForm.scss";
 
@@ -13,12 +14,13 @@ const DEFAULT_FORM = {
 };
 
 export function SignInForm({ showSignUpForm }) {
-  const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
+  const [signInForm, setSignUpForm] = useState(DEFAULT_FORM);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
 
-  const { email, password } = signUpForm;
+  const { email, password } = signInForm;
   const onFormChange = ({ target: { name, value } }) => {
-    setSignUpForm({ ...signUpForm, [name]: value });
+    setSignUpForm({ ...signInForm, [name]: value });
   };
 
   const resetSignInForm = () => {
@@ -29,17 +31,27 @@ export function SignInForm({ showSignUpForm }) {
     event.preventDefault();
 
     try {
+      setIsButtonDisabled(true);
       await signInAuthUserWithEmailAndPassword(email, password);
 
       resetSignInForm();
       navigate("/");
     } catch (error) {
-      console.log("Error when signing using email and password", error);
+      toast.error(error.message);
+    } finally {
+      setIsButtonDisabled(false);
     }
   };
 
   const logGoogleUser = async () => {
-    await signInWithGooglePopup();
+    try {
+      setIsButtonDisabled(true);
+      await signInWithGooglePopup();
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsButtonDisabled(false);
+    }
   };
 
   return (
@@ -62,11 +74,18 @@ export function SignInForm({ showSignUpForm }) {
           value={password}
         />
         <div className="buttons-container">
-          <Button type="submit">
+          <Button
+            type="submit"
+            buttonType={`${isButtonDisabled ? "disabled" : ""}`}
+          >
             <span>sign in</span>
           </Button>
           <p>or</p>
-          <Button type="button" buttonType="google" onClick={logGoogleUser}>
+          <Button
+            type="button"
+            onClick={logGoogleUser}
+            buttonType={`${isButtonDisabled ? "disabled" : "google"}`}
+          >
             <span>google sign in</span>
           </Button>
         </div>

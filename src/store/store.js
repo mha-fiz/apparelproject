@@ -13,17 +13,19 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./reducers/userReducer";
 import productsReducer from "./reducers/productsReducer";
 import cartReducer from "./reducers/cartReducer";
+import configReducer from "./reducers/configReducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "config"],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   products: productsReducer,
   cart: cartReducer,
+  config: configReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

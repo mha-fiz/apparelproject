@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/reducers/userReducer";
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Cart, CartDropdown } from "../../components";
 import { signOutUser } from "../../utils/firebase";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import logo from "../../assets/crown-white.png";
-import "./Navigation.scss";
 import { cartCountSelector, isCartOpenSelector } from "../../store/selectors";
+import { toggleTheme } from "../../store/reducers/configReducer";
+import logoDark from "../../assets/crown-black.png";
+import logoLight from "../../assets/crown-white.png";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { GB as EngFlag } from "country-flag-icons/react/3x2";
+import "./Navigation.scss";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const isDarkTheme = useSelector((state) => state.config.isDarkTheme);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const isCartOpen = useSelector(isCartOpenSelector);
   const cartCount = useSelector(cartCountSelector);
   const navigate = useNavigate();
@@ -45,20 +50,19 @@ const Navigation = () => {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
-      <header className="navigation">
-        <div className="nav-links-left">
-          <Link to="/shop/mens">Mens</Link>
-          <Link to="/shop/womens">Womens</Link>
-          <Link to="/shop/jackets">Jackets</Link>
-          <Link to="/shop/hats">Hats</Link>
-          <Link to="/shop/sneakers">Sneakers</Link>
-        </div>
-
+    <div className={`app-layout ${isDarkTheme ? "dark" : ""}`}>
+      <header className={`navigation ${isDarkTheme ? "dark" : ""}`}>
         <div className="logo-container" onClick={() => navigate("/")}>
-          <img src={logo} alt="company logo" />
+          <img
+            src={logoLight}
+            alt="company logo"
+            style={{ display: `${isDarkTheme ? "block" : "none"}` }}
+          />
+          <img
+            src={logoDark}
+            alt="company logo"
+            style={{ display: `${isDarkTheme ? "none" : "block"}` }}
+          />
         </div>
 
         <div className="nav-links-container">
@@ -78,7 +82,33 @@ const Navigation = () => {
               <span>Sign Out</span>
             </div>
           )}
-          <Cart />
+          <div className="nav-link">
+            <Cart />
+          </div>
+          <div className="nav-link" onClick={() => dispatch(toggleTheme())}>
+            {isDarkTheme ? (
+              <div className="nav-svg-container">
+                <div className="nav-svg">
+                  <MdOutlineLightMode
+                    style={{ height: "inherit", width: "inherit" }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="nav-svg-container">
+                <div className="nav-svg">
+                  <MdOutlineDarkMode />
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="nav-link">
+            <div className="nav-svg-container">
+              <div className="nav-svg">
+                <EngFlag />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="nav-hamburger" onClick={drawerOpenHandler}>
           <GiHamburgerMenu className="nav-hamburger-icon" />
@@ -91,7 +121,10 @@ const Navigation = () => {
                 drawerClosedOnElementClick("/", drawerClosedHandler)
               }
             >
-              <img src={logo} alt="company logo" />
+              <img
+                src={isDarkTheme ? logoLight : logoDark}
+                alt="company logo"
+              />
             </div>
             <div
               style={{ width: "30px", height: "30px", marginRight: "50px" }}
@@ -144,14 +177,8 @@ const Navigation = () => {
         <Outlet />
       </main>
 
-      <footer
-        style={{
-          height: "50px",
-          backgroundColor: "greenyellow",
-          width: "100%",
-        }}
-      >
-        FOOOTERm
+      <footer>
+        <p>Created by Muhamad Hafiz.</p>
       </footer>
     </div>
   );

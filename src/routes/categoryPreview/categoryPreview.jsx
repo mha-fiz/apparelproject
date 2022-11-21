@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { CategoryPreview } from "../../components/";
 import { selectProductCategories } from "../../store/selectors";
+import { ToastContainer } from "react-toastify";
 
 export function CategoriesPreview() {
   const productCategories = useSelector(selectProductCategories);
@@ -18,6 +19,7 @@ export function CategoriesPreview() {
           />
         );
       })}
+      <ToastContainer />
     </>
   );
 }
