@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/reducers/cartReducer";
 import { cartItemsSelector } from "../../store/selectors";
@@ -9,6 +10,7 @@ export function ProductCard({ product }) {
   const { name, imageUrl, price } = product;
   const dispatch = useDispatch();
   const cartItems = useSelector(cartItemsSelector);
+  const { t: translate } = useTranslation();
 
   const itemToDispatch = addItemToCartAction(cartItems, product);
   const addProduct = () => {
@@ -25,7 +27,7 @@ export function ProductCard({ product }) {
       </div>
 
       <Button buttonType="inverted" onClick={addProduct}>
-        Add to cart
+        {translate("addToCart")}
       </Button>
     </div>
   );

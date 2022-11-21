@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
@@ -17,6 +18,7 @@ export function SignInForm({ showSignUpForm }) {
   const [signInForm, setSignUpForm] = useState(DEFAULT_FORM);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
+  const { t: translate } = useTranslation();
 
   const { email, password } = signInForm;
   const onFormChange = ({ target: { name, value } }) => {
@@ -33,6 +35,10 @@ export function SignInForm({ showSignUpForm }) {
     try {
       setIsButtonDisabled(true);
       await signInAuthUserWithEmailAndPassword(email, password);
+      if (!email || !password) {
+        toast.error("Please provide email and password");
+        return;
+      }
 
       resetSignInForm();
       navigate("/");
@@ -56,7 +62,7 @@ export function SignInForm({ showSignUpForm }) {
 
   return (
     <div className="sign-up-container">
-      <h2>Sign In with your account</h2>
+      <h2>{translate("signInHeading")}</h2>
 
       <form onSubmit={onFormSubmit}>
         <FormInput
@@ -78,20 +84,20 @@ export function SignInForm({ showSignUpForm }) {
             type="submit"
             buttonType={`${isButtonDisabled ? "disabled" : ""}`}
           >
-            <span>sign in</span>
+            <span>{translate("signInButton")}</span>
           </Button>
-          <p>or</p>
+          {/* <p>or</p> */}
           <Button
             type="button"
             onClick={logGoogleUser}
             buttonType={`${isButtonDisabled ? "disabled" : "google"}`}
           >
-            <span>google sign in</span>
+            <span>{translate("signInGoogle")}</span>
           </Button>
         </div>
       </form>
       <span style={{ marginTop: "16px" }}>
-        Don't have an account?{" "}
+        {translate("signInNoAccount")}{" "}
         <span
           style={{
             fontWeight: "900",
@@ -100,7 +106,7 @@ export function SignInForm({ showSignUpForm }) {
           }}
           onClick={showSignUpForm}
         >
-          Sign up
+          {translate("signUp")}
         </span>
       </span>
     </div>

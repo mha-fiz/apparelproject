@@ -2,26 +2,32 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/reducers/userReducer";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Cart, CartDropdown } from "../../components";
+import { useTranslation } from "react-i18next";
+import { Cart, CartDropdown, NavDrawer } from "../../components";
 import { signOutUser } from "../../utils/firebase";
-import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { cartCountSelector, isCartOpenSelector } from "../../store/selectors";
-import { toggleTheme } from "../../store/reducers/configReducer";
+import { toggleTheme as toggleThemeAction } from "../../store/reducers/themeReducer";
+import { toggleLanguage } from "../../store/reducers/languageReducer";
+
 import logoDark from "../../assets/crown-black.png";
 import logoLight from "../../assets/crown-white.png";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { GB as EngFlag } from "country-flag-icons/react/3x2";
+import { GB as EngFlag, ID as IndoFlag } from "country-flag-icons/react/3x2";
 import "./Navigation.scss";
 
 const Navigation = () => {
-  const dispatch = useDispatch();
-  const isDarkTheme = useSelector((state) => state.config.isDarkTheme);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
+  const currentLanguage = useSelector(
+    (state) => state.language.currentLanguage
+  );
   const currentUser = useSelector((state) => state.user.currentUser);
   const isCartOpen = useSelector(isCartOpenSelector);
   const cartCount = useSelector(cartCountSelector);
   const navigate = useNavigate();
+  const { t: translate, i18n } = useTranslation();
 
   const drawerClosedHandler = () => {
     setIsDrawerOpen(false);
@@ -49,6 +55,24 @@ const Navigation = () => {
     callback();
   };
 
+  const toggleTheme = () => {
+    dispatch(toggleThemeAction());
+  };
+
+  const changeLanguage = () => {
+    if (currentLanguage === "en") {
+      i18n.changeLanguage("id");
+      dispatch(toggleLanguage("id"));
+      return;
+    }
+
+    if (currentLanguage === "id") {
+      i18n.changeLanguage("en");
+      dispatch(toggleLanguage("en"));
+      return;
+    }
+  };
+
   return (
     <div className={`app-layout ${isDarkTheme ? "dark" : ""}`}>
       <header className={`navigation ${isDarkTheme ? "dark" : ""}`}>
@@ -67,7 +91,7 @@ const Navigation = () => {
 
         <div className="nav-links-container">
           <div className="nav-link" to="shop" onClick={() => navigate("/shop")}>
-            <span>Shop</span>
+            <span>{translate("shop")}</span>
           </div>
           {!currentUser ? (
             <div
@@ -75,17 +99,17 @@ const Navigation = () => {
               to="auth"
               onClick={() => navigate("/auth")}
             >
-              <span>Sign In</span>
+              <span>{translate("signIn")}</span>
             </div>
           ) : (
             <div className="nav-link" onClick={signOutHandler}>
-              <span>Sign Out</span>
+              <span>{translate("signOut")}</span>
             </div>
           )}
           <div className="nav-link">
             <Cart />
           </div>
-          <div className="nav-link" onClick={() => dispatch(toggleTheme())}>
+          <div className="nav-link" onClick={toggleTheme}>
             {isDarkTheme ? (
               <div className="nav-svg-container">
                 <div className="nav-svg">
@@ -103,9 +127,9 @@ const Navigation = () => {
             )}
           </div>
           <div className="nav-link">
-            <div className="nav-svg-container">
+            <div className="nav-svg-container" onClick={changeLanguage}>
               <div className="nav-svg">
-                <EngFlag />
+                {currentLanguage === "en" ? <EngFlag /> : <IndoFlag />}
               </div>
             </div>
           </div>
@@ -113,63 +137,17 @@ const Navigation = () => {
         <div className="nav-hamburger" onClick={drawerOpenHandler}>
           <GiHamburgerMenu className="nav-hamburger-icon" />
         </div>
-        <div className={`nav-drawer ${isDrawerOpen ? "is-active" : ""}`}>
-          <div className="drawer-header">
-            <div
-              className="logo-container"
-              onClick={() =>
-                drawerClosedOnElementClick("/", drawerClosedHandler)
-              }
-            >
-              <img
-                src={isDarkTheme ? logoLight : logoDark}
-                alt="company logo"
-              />
-            </div>
-            <div
-              style={{ width: "30px", height: "30px", marginRight: "50px" }}
-              onClick={drawerClosedHandler}
-            >
-              <AiOutlineClose style={{ width: "inherit", height: "inherit" }} />
-            </div>
-          </div>
-          <div className="drawer-content">
-            <p
-              onClick={() =>
-                drawerClosedOnElementClick("/shop", drawerClosedHandler)
-              }
-            >
-              Shop
-            </p>
-            {currentUser && (
-              <p
-                onClick={() =>
-                  drawerClosedOnElementClick("/checkout", drawerClosedHandler)
-                }
-              >
-                Cart ({cartCount})
-              </p>
-            )}
-
-            {currentUser ? (
-              <p
-                onClick={() =>
-                  drawerClosedOnElementClick("/", drawerClosedHandler)
-                }
-              >
-                Sign Out
-              </p>
-            ) : (
-              <p
-                onClick={() =>
-                  drawerClosedOnElementClick("/auth", drawerClosedHandler)
-                }
-              >
-                Sign In
-              </p>
-            )}
-          </div>
-        </div>
+        <NavDrawer
+          currentUser={currentUser}
+          cartCount={cartCount}
+          drawerClosedOnElementClick={drawerClosedOnElementClick}
+          drawerClosedHandler={drawerClosedHandler}
+          isDrawerOpen={isDrawerOpen}
+          isDarkTheme={isDarkTheme}
+          toggleTheme={toggleTheme}
+          currentLanguage={currentLanguage}
+          changeLanguage={changeLanguage}
+        />
         {isCartOpen && <CartDropdown />}
       </header>
 

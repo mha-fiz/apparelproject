@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ProductCard } from "../index";
+import { getTranslatedTitle } from "../../utils/utils";
 import "./CategoryPreview.scss";
 
 export const CategoryPreview = ({ title, products }) => {
-  const isDarkTheme = useSelector((state) => state.config.isDarkTheme);
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
+  const { t: translate } = useTranslation();
 
   return (
     <div className="category-preview-container">
@@ -13,7 +16,7 @@ export const CategoryPreview = ({ title, products }) => {
           className={`title ${isDarkTheme ? "dark" : ""}`}
           to={`/shop/${title}`}
         >
-          {title}
+          {getTranslatedTitle(title, translate)}
         </Link>
       </h2>
 

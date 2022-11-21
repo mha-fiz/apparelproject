@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { getTranslatedTitle } from "../../utils/utils";
 import "./CategoryItem.scss";
 
 export default function CategoryItem({ category: { title, imageUrl } }) {
   const navigate = useNavigate();
+  const { t: translate } = useTranslation();
 
   return (
     <div
@@ -16,8 +19,8 @@ export default function CategoryItem({ category: { title, imageUrl } }) {
         }}
       />
       <div className="category-name-container">
-        <h2>{title}</h2>
-        <p>Shop Now</p>
+        <h2>{getTranslatedTitle(title, translate)}</h2>
+        <p>{translate("shopNow")}</p>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
 import { toast } from "react-toastify";
 import { FormInput, Button } from "../";
 import "./SignUpForm.scss";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_FORM = {
   displayName: "",
@@ -18,6 +19,7 @@ const DEFAULT_FORM = {
 function SignUpForm({ showSignInForm }) {
   const [signUpForm, setSignUpForm] = useState(DEFAULT_FORM);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { t: translate } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -34,8 +36,15 @@ function SignUpForm({ showSignInForm }) {
   const onFormSubmit = async (event) => {
     event.preventDefault();
 
+    if (!email || !displayName || !password) {
+      toast.error(
+        "Credential incomplete. Please fill the name, email, and password"
+      );
+      return;
+    }
+
     if (password !== confirmPassword) {
-      alert("Password does not match!");
+      toast.error("Password does not match!");
       return;
     }
 
@@ -63,7 +72,7 @@ function SignUpForm({ showSignInForm }) {
 
       <form onSubmit={onFormSubmit}>
         <FormInput
-          label="Name"
+          label={translate("formLabelName")}
           type="text"
           name="displayName"
           onChange={onFormChange}
@@ -85,7 +94,7 @@ function SignUpForm({ showSignInForm }) {
         />
         <FormInput
           type="password"
-          label="Confirm Password"
+          label={translate("formLabelConfirmPassword")}
           name="confirmPassword"
           onChange={onFormChange}
           value={confirmPassword}
@@ -95,11 +104,11 @@ function SignUpForm({ showSignInForm }) {
           disabled={isButtonDisabled}
           buttonType={`${isButtonDisabled ? "disabled" : ""}`}
         >
-          Sign up
+          {translate("signUp")}
         </Button>
       </form>
       <span style={{ marginTop: "16px" }}>
-        Already have an account?{" "}
+        {translate("signUpHaveAccount")}{" "}
         <span
           style={{
             fontWeight: "900",
@@ -108,7 +117,7 @@ function SignUpForm({ showSignInForm }) {
           }}
           onClick={showSignInForm}
         >
-          Sign in
+          {translate("signIn")}
         </span>
       </span>
     </div>

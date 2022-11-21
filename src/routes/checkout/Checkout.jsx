@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CheckoutItem } from "../../components";
@@ -7,6 +8,7 @@ import "./Checkout.scss";
 export const Checkout = () => {
   const cartItems = useSelector(cartItemsSelector);
   const cartTotal = useSelector(cartTotalSelector);
+  const { t: translate } = useTranslation();
 
   return (
     <>
@@ -14,28 +16,28 @@ export const Checkout = () => {
       <div className="checkout-container">
         {!cartItems.length ? (
           <>
-            <h2>Your cart is empty</h2>
+            <h2>{translate("yourCartEmpty")}</h2>
             <Link to="/shop" style={{ textDecoration: "underline" }}>
-              Go to shop
+              {translate("goToShop")}
             </Link>
           </>
         ) : (
           <>
             <div className="checkout-header">
               <div className="header-block">
-                <span>Product</span>
+                <span>{translate("product")}</span>
               </div>
               <div className="header-block">
-                <span>Description</span>
+                <span>{translate("description")}</span>
               </div>
               <div className="header-block">
-                <span>Quantity</span>
+                <span>{translate("quantity")}</span>
               </div>
               <div className="header-block">
-                <span>Price</span>
+                <span>{translate("price")}</span>
               </div>
               <div className="header-block">
-                <span>Remove</span>
+                <span>{translate("remove")}</span>
               </div>
             </div>
             {cartItems.map((item) => (
@@ -50,9 +52,9 @@ export const Checkout = () => {
       <div className="checkout-container-mobile">
         {!cartItems.length ? (
           <>
-            <h2>Your cart is empty</h2>
+            <h2>{translate("yourCartEmpty")}</h2>
             <Link to="/shop" style={{ textDecoration: "underline" }}>
-              Go to shop
+              {translate("goToShop")}
             </Link>
           </>
         ) : (

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import "./FormInput.scss";
 
 function FormInput({ label, ...otherOptions }) {
-  const isDarkTheme = useSelector((state) => state.config.isDarkTheme);
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
 
   return (
     <div className="group">

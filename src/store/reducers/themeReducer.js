@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const configSlice = createSlice({
-  name: "config",
+const themeSlice = createSlice({
+  name: "theme",
   initialState: {
     isDarkTheme: false,
-    language: "en",
   },
   reducers: {
     toggleTheme: (state) => {
@@ -13,6 +12,6 @@ const configSlice = createSlice({
   },
 });
 
-export const { toggleTheme } = configSlice.actions;
+export const { toggleTheme } = themeSlice.actions;
 
-export default configSlice.reducer;
+export default themeSlice.reducer;

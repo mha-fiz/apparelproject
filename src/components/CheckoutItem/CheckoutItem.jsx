@@ -16,11 +16,13 @@ import {
   removeItemFromCartAction,
 } from "../../store/utils";
 import "./CheckoutItem.scss";
+import { useTranslation } from "react-i18next";
 
 export function CheckoutItem({ item, isMobileView = false }) {
   const { imageUrl, name, quantity, price } = item;
   const cartItems = useSelector(cartItemsSelector);
   const dispatch = useDispatch();
+  const { t: translate } = useTranslation();
 
   const itemToAdd = addItemToCartAction(cartItems, item);
   const addItemHandler = () => dispatch(addItemToCart(itemToAdd));
@@ -60,7 +62,9 @@ export function CheckoutItem({ item, isMobileView = false }) {
       <div className="item-description-mobile">
         <p style={{ margin: "0", fontWeight: "bold" }}>{name}</p>
         <div className="quantity-mobile">
-          <span className="value">Quantity: {quantity}</span>
+          <span className="value">
+            {translate("quantity")}: {quantity}
+          </span>
           <div
             style={{
               width: "16px",
@@ -86,7 +90,9 @@ export function CheckoutItem({ item, isMobileView = false }) {
             />
           </div>
         </div>
-        <span className="price">Price: {price}</span>
+        <span className="price">
+          {translate("price")}: {price}
+        </span>
         <div style={{ color: "#B21111" }} onClick={clearItemHandler}>
           <AiOutlineDelete />
         </div>

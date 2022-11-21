@@ -4,12 +4,14 @@ import "./CartDropdown.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsCartOpen } from "../../store/reducers/cartReducer";
 import { cartItemsSelector } from "../../store/selectors";
+import { useTranslation } from "react-i18next";
 
 export const CartDropdown = () => {
   const cartItems = useSelector(cartItemsSelector);
   const dispatch = useDispatch();
   const toggleCartDropdown = () => dispatch(setIsCartOpen());
   const navigate = useNavigate();
+  const { t: translate } = useTranslation();
 
   return (
     <div className="cart-dropdown-container">
@@ -28,7 +30,7 @@ export const CartDropdown = () => {
           toggleCartDropdown();
         }}
       >
-        Go to checkout
+        {translate("goToCheckout")}
       </Button>
     </div>
   );

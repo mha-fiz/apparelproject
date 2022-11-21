@@ -7,6 +7,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ScrollToTop } from "./utils/scrollToTop";
 import { store, persistor } from "./store/store";
+import "./locale/i18n";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 
