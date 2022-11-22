@@ -17,6 +17,8 @@ import {
 } from "../../store/utils";
 import "./CheckoutItem.scss";
 import { useTranslation } from "react-i18next";
+import { FaRegHeart } from "react-icons/fa";
+import { addItemToWishlist } from "../../store/reducers/wishlistReducer";
 
 export function CheckoutItem({ item, isMobileView = false }) {
   const { imageUrl, name, quantity, price } = item;
@@ -32,6 +34,11 @@ export function CheckoutItem({ item, isMobileView = false }) {
 
   const itemToClear = clearItemFromCartAction(cartItems, item);
   const clearItemHandler = () => dispatch(clearItemFromCart(itemToClear));
+
+  const moveProductToWishlist = () => {
+    dispatch(addItemToWishlist(item));
+    dispatch(clearItemFromCart(itemToClear));
+  };
 
   if (!isMobileView)
     return (
@@ -51,7 +58,12 @@ export function CheckoutItem({ item, isMobileView = false }) {
         </div>
         <span className="price"> {price}</span>
         <div className="remove-button" onClick={clearItemHandler}>
-          <AiOutlineDelete />
+          <div style={{ marginBottom: "10px" }}>
+            <AiOutlineDelete />
+          </div>
+          <div style={{ color: "red" }} onClick={moveProductToWishlist}>
+            <FaRegHeart />
+          </div>
         </div>
       </div>
     );
@@ -93,8 +105,11 @@ export function CheckoutItem({ item, isMobileView = false }) {
         <span className="price">
           {translate("price")}: {price}
         </span>
-        <div style={{ color: "#B21111" }} onClick={clearItemHandler}>
+        <div onClick={clearItemHandler}>
           <AiOutlineDelete />
+        </div>
+        <div style={{ color: "red" }} onClick={moveProductToWishlist}>
+          <FaRegHeart />
         </div>
       </div>
     </div>

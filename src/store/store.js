@@ -15,6 +15,7 @@ import productsReducer from "./reducers/productsReducer";
 import cartReducer from "./reducers/cartReducer";
 import languageReducer from "./reducers/languageReducer";
 import themeReducer from "./reducers/themeReducer";
+import wishlistReducer from "./reducers/wishlistReducer";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   language: languageReducer,
   theme: themeReducer,
+  wishlist: wishlistReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

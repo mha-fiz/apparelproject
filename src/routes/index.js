@@ -5,6 +5,7 @@ import { Shop } from "./shop/Shop";
 import { Checkout } from "./checkout/Checkout";
 import { CategoriesPreview } from "./categoryPreview/categoryPreview";
 import { Category } from "./category/Category";
+import { Wishlist } from "./wishlist/Wishlist";
 export {
   Home,
   Navigation,
@@ -13,4 +14,5 @@ export {
   Checkout,
   CategoriesPreview,
   Category,
+  Wishlist,
 };

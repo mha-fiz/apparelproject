@@ -12,6 +12,7 @@ import { CheckoutItem } from "./CheckoutItem/CheckoutItem";
 import { CategoryPreview } from "./CategoryPreview/CategoryPreview";
 import { Hero } from "./Hero/Hero";
 import { NavDrawer } from "./NavDrawer/NavDrawer";
+import { WishlistItem } from "./WishlistItem/WishlistItem";
 
 export {
   CategoriesContainer,
@@ -28,4 +29,5 @@ export {
   CategoryPreview,
   Hero,
   NavDrawer,
+  WishlistItem,
 };

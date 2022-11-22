@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { ProductCard } from "../../components";
 import { selectProductCategories } from "../../store/selectors";
 import "./Category.scss";
@@ -35,6 +36,7 @@ export const Category = () => {
           </>
         )}
       </div>
+      <ToastContainer />
     </>
   );
 };

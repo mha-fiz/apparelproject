@@ -13,6 +13,7 @@ import { toggleLanguage } from "../../store/reducers/languageReducer";
 import logoDark from "../../assets/crown-black.png";
 import logoLight from "../../assets/crown-white.png";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
 import { GB as EngFlag, ID as IndoFlag } from "country-flag-icons/react/3x2";
 import "./Navigation.scss";
 
@@ -26,6 +27,7 @@ const Navigation = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const isCartOpen = useSelector(isCartOpenSelector);
   const cartCount = useSelector(cartCountSelector);
+  const wishlistCount = useSelector((state) => state.wishlist.list.length);
   const navigate = useNavigate();
   const { t: translate, i18n } = useTranslation();
 
@@ -93,6 +95,25 @@ const Navigation = () => {
           <div className="nav-link" to="shop" onClick={() => navigate("/shop")}>
             <span>{translate("shop")}</span>
           </div>
+          {currentUser && (
+            <div
+              className="nav-link"
+              to="shop"
+              onClick={() => navigate("/wishlist")}
+            >
+              <div className="nav-svg-container">
+                <div style={{ height: "20px", width: "20px" }}>
+                  <FaRegHeart style={{ height: "inherit", width: "inherit" }} />
+                </div>
+                <span style={{ marginLeft: "10px" }}>({wishlistCount})</span>
+              </div>
+            </div>
+          )}
+          {currentUser && (
+            <div className="nav-link">
+              <Cart />
+            </div>
+          )}
           {!currentUser ? (
             <div
               className="nav-link"
@@ -106,9 +127,6 @@ const Navigation = () => {
               <span>{translate("signOut")}</span>
             </div>
           )}
-          <div className="nav-link">
-            <Cart />
-          </div>
           <div className="nav-link" onClick={toggleTheme}>
             {isDarkTheme ? (
               <div className="nav-svg-container">
@@ -147,6 +165,7 @@ const Navigation = () => {
           toggleTheme={toggleTheme}
           currentLanguage={currentLanguage}
           changeLanguage={changeLanguage}
+          wishlistCount={wishlistCount}
         />
         {isCartOpen && <CartDropdown />}
       </header>

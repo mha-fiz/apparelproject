@@ -13,6 +13,7 @@ export const NavDrawer = ({
   isDarkTheme,
   currentUser,
   cartCount,
+  wishlistCount,
   currentLanguage,
   changeLanguage,
   toggleTheme,
@@ -27,7 +28,7 @@ export const NavDrawer = ({
     >
       <div className={`drawer-header ${isDarkTheme ? "dark" : ""}`}>
         <div
-          className="logo-container"
+          className="drawer-logo-container"
           onClick={() => drawerClosedOnElementClick("/", drawerClosedHandler)}
         >
           <img
@@ -68,6 +69,7 @@ export const NavDrawer = ({
           <AiOutlineClose style={{ width: "inherit", height: "inherit" }} />
         </div>
       </div>
+
       <div className="drawer-content">
         <p
           onClick={() =>
@@ -76,13 +78,24 @@ export const NavDrawer = ({
         >
           {translate("shop")}
         </p>
-        <p
-          onClick={() =>
-            drawerClosedOnElementClick("/checkout", drawerClosedHandler)
-          }
-        >
-          {translate("cart")} ({cartCount})
-        </p>
+        {currentUser && (
+          <>
+            <p
+              onClick={() =>
+                drawerClosedOnElementClick("/wishlist", drawerClosedHandler)
+              }
+            >
+              Wishlist ({wishlistCount})
+            </p>
+            <p
+              onClick={() =>
+                drawerClosedOnElementClick("/checkout", drawerClosedHandler)
+              }
+            >
+              {translate("cart")} ({cartCount})
+            </p>
+          </>
+        )}
 
         {currentUser ? (
           <p

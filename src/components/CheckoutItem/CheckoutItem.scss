@@ -42,7 +42,9 @@
     }
   
     .remove-button {
-      padding-left: 12px;
+      padding-left: 25px;
+      display: flex;
+      flex-direction: column;
       cursor: pointer;
     }
   }

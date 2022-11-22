@@ -6,7 +6,14 @@ import {
   getCurrentUser,
 } from "./utils/firebase";
 import { Routes, Route } from "react-router-dom";
-import { Home, Navigation, Authentication, Shop, Checkout } from "./routes";
+import {
+  Home,
+  Navigation,
+  Authentication,
+  Shop,
+  Checkout,
+  Wishlist,
+} from "./routes";
 import { setCurrentUser } from "./store/reducers/userReducer";
 
 const App = () => {
@@ -35,6 +42,7 @@ const App = () => {
         <Route path="auth" element={<Authentication />} />
         <Route path="shop/*" element={<Shop />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="wishlist" element={<Wishlist />} />
       </Route>
     </Routes>
   );

@@ -1,11 +1,13 @@
 {
     "addToCart": "Add To Cart",
+    "addToWishlist": "Add To Wishlist",
     "browse": "Browse",
     "cart": "Cart",
     "description": "Description",
     "formLabelName": "Name",
     "formLabelConfirmPassword": "Confirm Password",
     "goToCheckout": "Go to checkout",
+    "goToShop": "Go to shop",
     "hats": "Hats",
     "heroText": "NEW COLLECTION IS OUT!",
     "jackets": "Jackets",
