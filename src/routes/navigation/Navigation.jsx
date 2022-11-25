@@ -92,7 +92,11 @@ const Navigation = () => {
         </div>
 
         <div className="nav-links-container">
-          <div className="nav-link" to="shop" onClick={() => navigate("/shop")}>
+          <div
+            className="nav-link"
+            to="shop`"
+            onClick={() => navigate("/shop")}
+          >
             <span>{translate("shop")}</span>
           </div>
           {currentUser && (

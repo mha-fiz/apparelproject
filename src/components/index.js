@@ -13,6 +13,7 @@ import { CategoryPreview } from "./CategoryPreview/CategoryPreview";
 import { Hero } from "./Hero/Hero";
 import { NavDrawer } from "./NavDrawer/NavDrawer";
 import { WishlistItem } from "./WishlistItem/WishlistItem";
+import { Modal } from "./Modal/Modal";
 
 export {
   CategoriesContainer,
@@ -30,4 +31,5 @@ export {
   Hero,
   NavDrawer,
   WishlistItem,
+  Modal,
 };
