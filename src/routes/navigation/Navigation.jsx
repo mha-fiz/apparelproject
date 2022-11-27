@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/reducers/userReducer";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Cart, CartDropdown, NavDrawer } from "../../components";
+import { Cart, CartDropdown, Modal, NavDrawer } from "../../components";
 import { signOutUser } from "../../utils/firebase";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { cartCountSelector, isCartOpenSelector } from "../../store/selectors";
@@ -16,6 +16,7 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { GB as EngFlag, ID as IndoFlag } from "country-flag-icons/react/3x2";
 import "./Navigation.scss";
+import { toggleModal } from "../../store/reducers/modalReducer";
 
 const Navigation = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -28,6 +29,7 @@ const Navigation = () => {
   const isCartOpen = useSelector(isCartOpenSelector);
   const cartCount = useSelector(cartCountSelector);
   const wishlistCount = useSelector((state) => state.wishlist.list.length);
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   const navigate = useNavigate();
   const { t: translate, i18n } = useTranslation();
 
@@ -76,112 +78,120 @@ const Navigation = () => {
   };
 
   return (
-    <div className={`app-layout ${isDarkTheme ? "dark" : ""}`}>
-      <header className={`navigation ${isDarkTheme ? "dark" : ""}`}>
-        <div className="logo-container" onClick={() => navigate("/")}>
-          <img
-            src={logoLight}
-            alt="company logo"
-            style={{ display: `${isDarkTheme ? "block" : "none"}` }}
-          />
-          <img
-            src={logoDark}
-            alt="company logo"
-            style={{ display: `${isDarkTheme ? "none" : "block"}` }}
-          />
-        </div>
-
-        <div className="nav-links-container">
-          <div
-            className="nav-link"
-            to="shop`"
-            onClick={() => navigate("/shop")}
-          >
-            <span>{translate("shop")}</span>
+    <>
+      <div className={`app-layout ${isDarkTheme ? "dark" : ""}`}>
+        <header className={`navigation ${isDarkTheme ? "dark" : ""}`}>
+          <div className="logo-container" onClick={() => navigate("/")}>
+            <img
+              src={logoLight}
+              alt="company logo"
+              style={{ display: `${isDarkTheme ? "block" : "none"}` }}
+            />
+            <img
+              src={logoDark}
+              alt="company logo"
+              style={{ display: `${isDarkTheme ? "none" : "block"}` }}
+            />
           </div>
-          {currentUser && (
+
+          <div className="nav-links-container">
             <div
               className="nav-link"
-              to="shop"
-              onClick={() => navigate("/wishlist")}
+              to="shop`"
+              onClick={() => navigate("/shop")}
             >
-              <div className="nav-svg-container">
-                <div style={{ height: "20px", width: "20px" }}>
-                  <FaRegHeart style={{ height: "inherit", width: "inherit" }} />
-                </div>
-                <span style={{ marginLeft: "10px" }}>({wishlistCount})</span>
-              </div>
+              <span>{translate("shop")}</span>
             </div>
-          )}
-          {currentUser && (
-            <div className="nav-link">
-              <Cart />
-            </div>
-          )}
-          {!currentUser ? (
-            <div
-              className="nav-link"
-              to="auth"
-              onClick={() => navigate("/auth")}
-            >
-              <span>{translate("signIn")}</span>
-            </div>
-          ) : (
-            <div className="nav-link" onClick={signOutHandler}>
-              <span>{translate("signOut")}</span>
-            </div>
-          )}
-          <div className="nav-link" onClick={toggleTheme}>
-            {isDarkTheme ? (
-              <div className="nav-svg-container">
-                <div className="nav-svg">
-                  <MdOutlineLightMode
-                    style={{ height: "inherit", width: "inherit" }}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="nav-svg-container">
-                <div className="nav-svg">
-                  <MdOutlineDarkMode />
+            {currentUser && (
+              <div
+                className="nav-link"
+                to="shop"
+                onClick={() => navigate("/wishlist")}
+              >
+                <div className="nav-svg-container">
+                  <div style={{ height: "20px", width: "20px" }}>
+                    <FaRegHeart
+                      style={{ height: "inherit", width: "inherit" }}
+                    />
+                  </div>
+                  <span style={{ marginLeft: "10px" }}>({wishlistCount})</span>
                 </div>
               </div>
             )}
-          </div>
-          <div className="nav-link">
-            <div className="nav-svg-container" onClick={changeLanguage}>
-              <div className="nav-svg">
-                {currentLanguage === "en" ? <EngFlag /> : <IndoFlag />}
+            {currentUser && (
+              <div className="nav-link">
+                <Cart />
+              </div>
+            )}
+            {!currentUser ? (
+              <div
+                className="nav-link"
+                to="auth"
+                onClick={() => navigate("/auth")}
+              >
+                <span>{translate("signIn")}</span>
+              </div>
+            ) : (
+              <div className="nav-link" onClick={signOutHandler}>
+                <span>{translate("signOut")}</span>
+              </div>
+            )}
+            <div className="nav-link" onClick={toggleTheme}>
+              {isDarkTheme ? (
+                <div className="nav-svg-container">
+                  <div className="nav-svg">
+                    <MdOutlineLightMode
+                      style={{ height: "inherit", width: "inherit" }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="nav-svg-container">
+                  <div className="nav-svg">
+                    <MdOutlineDarkMode />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="nav-link">
+              <div className="nav-svg-container" onClick={changeLanguage}>
+                <div className="nav-svg">
+                  {currentLanguage === "en" ? <EngFlag /> : <IndoFlag />}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="nav-hamburger" onClick={drawerOpenHandler}>
-          <GiHamburgerMenu className="nav-hamburger-icon" />
-        </div>
-        <NavDrawer
-          currentUser={currentUser}
-          cartCount={cartCount}
-          drawerClosedOnElementClick={drawerClosedOnElementClick}
-          drawerClosedHandler={drawerClosedHandler}
-          isDrawerOpen={isDrawerOpen}
-          isDarkTheme={isDarkTheme}
-          toggleTheme={toggleTheme}
-          currentLanguage={currentLanguage}
-          changeLanguage={changeLanguage}
-          wishlistCount={wishlistCount}
-        />
-        {isCartOpen && <CartDropdown />}
-      </header>
+          <div className="nav-hamburger" onClick={drawerOpenHandler}>
+            <GiHamburgerMenu className="nav-hamburger-icon" />
+          </div>
+          <NavDrawer
+            currentUser={currentUser}
+            cartCount={cartCount}
+            drawerClosedOnElementClick={drawerClosedOnElementClick}
+            drawerClosedHandler={drawerClosedHandler}
+            isDrawerOpen={isDrawerOpen}
+            isDarkTheme={isDarkTheme}
+            toggleTheme={toggleTheme}
+            currentLanguage={currentLanguage}
+            changeLanguage={changeLanguage}
+            wishlistCount={wishlistCount}
+          />
+          {isCartOpen && <CartDropdown />}
+        </header>
 
-      <main style={{ flex: 1 }}>
-        <Outlet />
-      </main>
+        <main style={{ flex: 1 }}>
+          <Outlet />
+        </main>
 
-      <footer>
-        <p>Created by Muhamad Hafiz.</p>
-      </footer>
-    </div>
+        <footer>
+          <p>Created by Muhamad Hafiz.</p>
+        </footer>
+      </div>
+      <Modal
+        showModal={isModalOpen}
+        handleModalClose={() => dispatch(toggleModal())}
+      />
+    </>
   );
 };
 

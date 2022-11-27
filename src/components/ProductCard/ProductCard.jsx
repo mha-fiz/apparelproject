@@ -3,6 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addItemToCart } from "../../store/reducers/cartReducer";
+import {
+  setModalContent,
+  toggleModal,
+} from "../../store/reducers/modalReducer";
 import { addItemToWishlist } from "../../store/reducers/wishlistReducer";
 import { cartItemsSelector } from "../../store/selectors";
 import { addItemToCartAction } from "../../store/utils";
@@ -47,7 +51,8 @@ export function ProductCard({ product }) {
           buttonType="inverted"
           style={{ top: "10px" }}
           onClick={() => {
-            setShowModal(true);
+            dispatch(setModalContent(product));
+            dispatch(toggleModal());
           }}
         >
           Show modal
@@ -63,13 +68,13 @@ export function ProductCard({ product }) {
           {translate("addToCart")}
         </Button>
       </div>
-      <Modal
+      {/* <Modal
         showModal={showModal}
         handleModalClose={() => {
           setShowModal(false);
         }}
         item={product}
-      />
+      /> */}
     </>
   );
 }
