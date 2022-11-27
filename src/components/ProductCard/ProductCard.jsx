@@ -10,11 +10,11 @@ import {
 import { addItemToWishlist } from "../../store/reducers/wishlistReducer";
 import { cartItemsSelector } from "../../store/selectors";
 import { addItemToCartAction } from "../../store/utils";
-import { Button, Modal } from "../index";
+import { Button } from "../index";
 import "./ProductCard.scss";
 
 export function ProductCard({ product }) {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const { name, imageUrl, price } = product;
   const dispatch = useDispatch();
   const cartItems = useSelector(cartItemsSelector);
