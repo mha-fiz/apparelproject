@@ -33,10 +33,11 @@
       display: none;
     }
 
-    &:hover {
+    .detail-modal-button, .wishlist-button {
+      display: none;
+    }
 
-      transform: translateY(-5px);
-      transition: .3s;
+    &:hover {
 
       img {
         opacity: 0.8;
@@ -45,6 +46,52 @@
       button {
         opacity: 0.85;
         display: flex;
+      }
+
+      .detail-modal-button, .wishlist-button {
+        display: block;
+      }
+    }
+  }
+
+  .detail-modal-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 100px;
+    cursor: pointer;
+    background-color: #efef;
+
+    .detail-svg-container {
+      width: 20px;
+      height: 20px;
+      color: black;
+
+      svg {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+
+  .wishlist-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px;
+    border-radius: 100px;
+    cursor: pointer;
+    background-color: #efef;
+
+    .wishlist-svg-container {
+      width: 20px;
+      height: 20px;
+      color: black;
+
+      svg {
+        width: inherit;
+        height: inherit;
       }
     }
   }

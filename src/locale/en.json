@@ -1,6 +1,8 @@
 {
+    "404Message": "The page you are looking does not exist. Error 404.",
     "addToCart": "Add To Cart",
     "addToWishlist": "Add To Wishlist",
+    "backToHome": "Back to home",
     "browse": "Browse",
     "cart": "Cart",
     "description": "Description",
@@ -12,6 +14,7 @@
     "heroText": "NEW COLLECTION IS OUT!",
     "jackets": "Jackets",
     "mens": "Mens",
+    "pleaseSignIn": "Please sign in first",
     "price": "Price",
     "product": "Product",
     "remove": "Remove",

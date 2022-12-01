@@ -14,6 +14,7 @@ import { Hero } from "./Hero/Hero";
 import { NavDrawer } from "./NavDrawer/NavDrawer";
 import { WishlistItem } from "./WishlistItem/WishlistItem";
 import { Modal } from "./Modal/Modal";
+import { AppSkeleton } from "./Skeleton/Skeleton";
 
 export {
   CategoriesContainer,
@@ -32,4 +33,5 @@ export {
   NavDrawer,
   WishlistItem,
   Modal,
+  AppSkeleton,
 };

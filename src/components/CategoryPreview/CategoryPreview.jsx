@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { ProductCard } from "../index";
+import { AppSkeleton, ProductCard } from "../index";
 import { getTranslatedTitle } from "../../utils/utils";
 import "./CategoryPreview.scss";
 

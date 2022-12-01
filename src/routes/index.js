@@ -6,6 +6,8 @@ import { Checkout } from "./checkout/Checkout";
 import { CategoriesPreview } from "./categoryPreview/categoryPreview";
 import { Category } from "./category/Category";
 import { Wishlist } from "./wishlist/Wishlist";
+import { NotFound } from "./NotFound/NotFound";
+
 export {
   Home,
   Navigation,
@@ -15,4 +17,5 @@ export {
   CategoriesPreview,
   Category,
   Wishlist,
+  NotFound,
 };

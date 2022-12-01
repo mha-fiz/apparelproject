@@ -35,6 +35,10 @@ const Home = () => {
     <>
       <Hero />
       <CategoriesContainer categories={categories} />
+
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      ></div>
     </>
   );
 };

@@ -58,7 +58,7 @@ function SignUpForm({ showSignInForm }) {
       await createUserDocumentFromAuth(user, { displayName });
 
       resetSignUpForm();
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       toast.error(error.message);
     } finally {

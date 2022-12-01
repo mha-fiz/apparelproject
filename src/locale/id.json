@@ -1,6 +1,8 @@
 {
+    "404Message": "Halaman yang anda cari tidak dapat ditemukan. Error 404.",
     "addToCart": "Tambah ke keranjang",
     "addToWishlist": "Tambah ke wishlist",
+    "backToHome": "Kembali ke halaman depan",
     "browse": "Telusuri",
     "cart": "Keranjang",
     "description": "Deskripsi",
@@ -13,6 +15,7 @@
     "jackets": "Jaket",
     "mens": "Pria",
     "remove": "Hapus",
+    "pleaseSignIn": "Mohon masuk terlebih dahulu",
     "price": "Harga",
     "product": "Produk",
     "signUp": "Daftar",

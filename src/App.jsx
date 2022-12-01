@@ -13,6 +13,7 @@ import {
   Shop,
   Checkout,
   Wishlist,
+  NotFound,
 } from "./routes";
 import { setCurrentUser } from "./store/reducers/userReducer";
 
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
+        <Route path="*" element={<NotFound />} />
         <Route index element={<Home />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="shop/*" element={<Shop />} />

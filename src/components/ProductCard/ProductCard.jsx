@@ -1,7 +1,8 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
+
 import { addItemToCart } from "../../store/reducers/cartReducer";
 import {
   setModalContent,
@@ -14,24 +15,23 @@ import { Button } from "../index";
 import "./ProductCard.scss";
 
 export function ProductCard({ product }) {
-  // const [showModal, setShowModal] = useState(false);
   const { name, imageUrl, price } = product;
   const dispatch = useDispatch();
   const cartItems = useSelector(cartItemsSelector);
   const currentUser = useSelector((state) => state.user.currentUser);
   const { t: translate } = useTranslation();
 
-  const itemToDispatch = addItemToCartAction(cartItems, product);
+  const itemToAdd = addItemToCartAction(cartItems, product);
   const addProduct = () => {
     if (!currentUser) {
-      toast.error("Please sign in first");
+      toast.error(`${translate("pleaseSignIn")}`);
       return;
     }
-    dispatch(addItemToCart(itemToDispatch));
+    dispatch(addItemToCart(itemToAdd));
   };
   const addProductToWishlist = () => {
     if (!currentUser) {
-      toast.error("Please sign in first");
+      toast.error(`${translate("pleaseSignIn")}`);
       return;
     }
     dispatch(addItemToWishlist(product));
@@ -46,35 +46,28 @@ export function ProductCard({ product }) {
           <span className="name">{name}</span>
           <span className="price">{price}</span>
         </div>
-
-        <Button
-          buttonType="inverted"
-          style={{ top: "10px" }}
+        <div
+          className="detail-modal-button"
           onClick={() => {
             dispatch(setModalContent(product));
             dispatch(toggleModal());
           }}
         >
-          Show modal
-        </Button>
-        <Button
-          buttonType="inverted"
-          style={{ marginTop: "-100px" }}
-          onClick={addProductToWishlist}
-        >
-          {translate("addToWishlist")}
-        </Button>
+          <div className="detail-svg-container">
+            <AiOutlineEye />
+          </div>
+        </div>
+
+        <div className="wishlist-button" onClick={addProductToWishlist}>
+          <div className="wishlist-svg-container">
+            <AiOutlineHeart />
+          </div>
+        </div>
+
         <Button buttonType="inverted" onClick={addProduct}>
           {translate("addToCart")}
         </Button>
       </div>
-      {/* <Modal
-        showModal={showModal}
-        handleModalClose={() => {
-          setShowModal(false);
-        }}
-        item={product}
-      /> */}
     </>
   );
 }

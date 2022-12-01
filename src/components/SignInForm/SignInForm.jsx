@@ -41,7 +41,7 @@ export function SignInForm({ showSignUpForm }) {
       }
 
       resetSignInForm();
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       toast.error(error.message);
     } finally {
