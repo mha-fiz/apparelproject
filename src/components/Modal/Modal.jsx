@@ -63,19 +63,7 @@ export const Modal = ({ showModal, handleModalClose }) => {
               textJustify: "inter-word",
             }}
           >
-            Looking for the perfect hat to keep you warm during the winter?
-            You've found it! This cozy beanie is made of 100% acrylic, which is
-            great for its lightweight feel and soft material. With a stretchy
-            elastic band, this hat is easy to put on and take off. One size fits
-            most. Looking for the perfect hat to keep you warm during the
-            winter? You've found it! This cozy beanie is made of 100% acrylic,
-            which is great for its lightweight feel and soft material. With a
-            stretchy elastic band, this hat is easy to put on and take off. One
-            size fits most. Looking for the perfect hat to keep you warm during
-            the winter? You've found it! This cozy beanie is made of 100%
-            acrylic, which is great for its lightweight feel and soft material.
-            With a stretchy elastic band, this hat is easy to put on and take
-            off. One size fits most.
+            {modalContent?.description}
           </span>
           <div className="modal-buttons">
             <Button onClick={addProduct}>Add to cart</Button>
@@ -123,10 +111,7 @@ export const Modal = ({ showModal, handleModalClose }) => {
                   margin: "0",
                 }}
               >
-                Looking for the perfect hat to keep you warm during the winter?
-                You've found it! This cozy beanie is made of 100% acrylic, which
-                is great for its lightweight feel and soft material. With a
-                stretchy elastic band, this hat is easy to put on and take off.
+                {modalContent?.description}
               </span>
             </div>
             <div className="modal-buttons">

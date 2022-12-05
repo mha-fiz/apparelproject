@@ -1,12 +1,22 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppSkeleton, CategoryPreview } from "../../components/";
-import { selectProductCategories } from "../../store/selectors";
 import { ToastContainer } from "react-toastify";
 import "./categoryPreview.scss";
+import { getProductsCategoriesPreview } from "../../store/reducers/productsReducer";
 
 export function CategoriesPreview() {
   const isLoading = useSelector((state) => state.products.isLoading);
-  const productCategories = useSelector(selectProductCategories);
+  const categoriesPreview = useSelector(
+    (state) => state.products.productsCategoriesPreview
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!categoriesPreview.length) {
+      dispatch(getProductsCategoriesPreview());
+    }
+  }, [categoriesPreview]);
 
   return (
     <>
@@ -26,14 +36,12 @@ export function CategoriesPreview() {
         </div>
       ) : (
         <>
-          {Object.keys(productCategories).map((categoryTitle) => {
-            const products = productCategories[categoryTitle];
-
+          {categoriesPreview.map((category) => {
             return (
               <CategoryPreview
-                key={categoryTitle}
-                products={products}
-                title={categoryTitle}
+                key={category.category}
+                title={category.category}
+                products={category.items}
               />
             );
           })}

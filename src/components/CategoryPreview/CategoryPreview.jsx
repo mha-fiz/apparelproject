@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { AppSkeleton, ProductCard } from "../index";
+import { ProductCard } from "../index";
 import { getTranslatedTitle } from "../../utils/utils";
 import "./CategoryPreview.scss";
 
@@ -21,11 +21,9 @@ export const CategoryPreview = ({ title, products }) => {
       </h2>
 
       <div className="preview">
-        {products
-          .filter((_, index) => index < 4)
-          .map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
   );

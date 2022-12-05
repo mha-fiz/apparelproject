@@ -18,6 +18,8 @@ import {
   collection,
   query,
   getDocs,
+  where,
+  limit,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -87,7 +89,10 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const signOutUser = async () => await signOut(auth);
+export const signOutUser = async () => {
+  await signOut(auth);
+  window.localStorage.removeItem("persist:root");
+};
 
 export const onAuthStateChangedListerner = (callback) =>
   onAuthStateChanged(auth, callback);
@@ -105,6 +110,63 @@ export const addNewCollectionsAndDocuments = async (
   });
 
   await batch.commit();
+};
+export const batchInitialShopsData = async (collectionKey, shopDataArray) => {
+  const batch = writeBatch(db);
+
+  shopDataArray.forEach((item) => {
+    const docRef = doc(db, collectionKey, item.id.toLowerCase());
+    batch.set(docRef, item);
+  });
+
+  await batch.commit();
+};
+
+export const getCategoriesPreview = async () => {
+  const productRef = collection(db, "products");
+  const categoryQuery = (category) =>
+    query(productRef, where("category", "==", category), limit(4));
+
+  const mensSnapshot = await getDocs(categoryQuery("Mens"));
+  const womensSnapshot = await getDocs(categoryQuery("Womens"));
+  const jacketsSnapshot = await getDocs(categoryQuery("Jackets"));
+  const hatsSnapshot = await getDocs(categoryQuery("Hats"));
+  const sneakersSnapshot = await getDocs(categoryQuery("Sneakers"));
+
+  const getData = (snapshot) => {
+    let collection = {};
+
+    snapshot.forEach((item) => {
+      const data = item.data();
+      if (!collection.category) {
+        collection.category = data.category;
+        collection.items = [data];
+      } else {
+        collection.items.push(data);
+      }
+    });
+
+    return collection;
+  };
+
+  return [
+    getData(mensSnapshot),
+    getData(womensSnapshot),
+    getData(jacketsSnapshot),
+    getData(hatsSnapshot),
+    getData(sneakersSnapshot),
+  ];
+};
+
+export const getAllProductsInCategory = async (categoryTitle) => {
+  const q = query(
+    collection(db, "products"),
+    where("category", "==", categoryTitle)
+  );
+
+  const categorySnapshot = await getDocs(q);
+
+  return categorySnapshot.docs.map((item) => item.data());
 };
 
 export const getAllCategoriesAndDocuments = async () => {

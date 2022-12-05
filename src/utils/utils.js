@@ -1,7 +1,7 @@
 export const getTranslatedTitle = (title, callback) => {
-  if (title === "hats") return callback("hats");
-  if (title === "mens") return callback("mens");
-  if (title === "womens") return callback("womens");
-  if (title === "sneakers") return callback("sneakers");
-  if (title === "jackets") return callback("jackets");
+  if (title.toLowerCase() === "hats") return callback("hats");
+  if (title.toLowerCase() === "mens") return callback("mens");
+  if (title.toLowerCase() === "womens") return callback("womens");
+  if (title.toLowerCase() === "sneakers") return callback("sneakers");
+  if (title.toLowerCase() === "jackets") return callback("jackets");
 };

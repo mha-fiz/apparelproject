@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ProductCard, AppSkeleton } from "../../components";
-import { selectProductCategories } from "../../store/selectors";
+import { getProductsInCategory } from "../../store/reducers/productsReducer";
+import { getTranslatedTitle } from "../../utils/utils";
 import "./Category.scss";
 
 export const Category = () => {
-  const productCategories = useSelector(selectProductCategories);
+  const productCategories = useSelector((state) => state.products.products);
   const isLoading = useSelector((state) => state.products.isLoading);
   const { categoryTitle } = useParams();
-  const [products, setProducts] = useState(productCategories[categoryTitle]);
+
+  const dispatch = useDispatch();
+  const { t: translate } = useTranslation();
 
   useEffect(() => {
-    setProducts(productCategories[categoryTitle]);
-  }, [productCategories, categoryTitle]);
+    dispatch(getProductsInCategory(categoryTitle));
+  }, []);
 
   return (
     <>
@@ -41,13 +45,13 @@ export const Category = () => {
               marginBottom: "20px",
             }}
           >
-            {categoryTitle}
+            {getTranslatedTitle(categoryTitle, translate)}
           </h2>
 
           <div className="products-container">
-            {products && (
+            {productCategories && (
               <>
-                {products.map((product) => (
+                {productCategories.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </>
