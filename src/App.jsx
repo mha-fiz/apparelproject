@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 // import SHOP_DATA_v2 from "./shop-datav2";
 
 const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListerner(async (userAuth) => {
       if (userAuth) {

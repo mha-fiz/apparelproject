@@ -17,7 +17,10 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { GB as EngFlag, ID as IndoFlag } from "country-flag-icons/react/3x2";
 import "./Navigation.scss";
-import { toggleModal } from "../../store/reducers/modalReducer";
+import {
+  clearModalContent,
+  toggleModal,
+} from "../../store/reducers/modalReducer";
 
 const Navigation = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -31,6 +34,7 @@ const Navigation = () => {
   const cartCount = useSelector(cartCountSelector);
   const wishlistCount = useSelector((state) => state.wishlist.list.length);
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const modalContent = useSelector((state) => state.modal.modalContent);
   const navigate = useNavigate();
   const { t: translate, i18n } = useTranslation();
 
@@ -188,10 +192,15 @@ const Navigation = () => {
           <p>Created by Muhamad Hafiz.</p>
         </footer>
       </div>
-      <Modal
-        showModal={isModalOpen}
-        handleModalClose={() => dispatch(toggleModal())}
-      />
+      {modalContent && (
+        <Modal
+          showModal={isModalOpen}
+          handleModalClose={() => {
+            dispatch(toggleModal());
+            dispatch(clearModalContent());
+          }}
+        />
+      )}
     </>
   );
 };

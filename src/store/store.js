@@ -21,7 +21,7 @@ import modalReducer from "./reducers/modalReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "theme"],
+  // whitelist: ["cart", "theme"],
 };
 
 const rootReducer = combineReducers({

@@ -13,9 +13,13 @@ const modalSlice = createSlice({
     setModalContent: (state, action) => {
       state.modalContent = action.payload;
     },
+    clearModalContent: (state) => {
+      state.modalContent = null;
+    },
   },
 });
 
-export const { toggleModal, setModalContent } = modalSlice.actions;
+export const { toggleModal, setModalContent, clearModalContent } =
+  modalSlice.actions;
 
 export default modalSlice.reducer;
